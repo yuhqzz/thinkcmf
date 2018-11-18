@@ -10,11 +10,21 @@
 // +----------------------------------------------------------------------
 namespace app\user\model;
 
+use think\Collection;
 use think\Model;
 
 class AssetModel extends Model
 {
 
 
+    public function getAssetByKey($key){
+        if(empty($key)) return null;
+        $data = $this
+            ->where('file_key','=',':key')
+            ->bind('key',$key)
+            ->find();
+       // $data = Collection::make($data)->toArray();
 
+        return $data?$data->toArray():[];
+    }
 }

@@ -99,6 +99,7 @@
             file.preview_url = file.filepath;
             file.url         = file.filepath;
             file.name        = "";//jQuery(".filelist li .title").eq(i).html();
+            file.filekey        = ''
             files.push(file);
         } else {
             var number = jQuery(".filelist li").size();
@@ -111,6 +112,7 @@
                 file.preview_url = $file.data("preview_url");//httpUrl+file.filepath;
                 file.url         = $file.data("url");
                 file.name        = $file.data("name");
+                file.filekey        = $file.data("filekey");
                 if (file.url == undefined) {
                     continue;
                 } else {
@@ -324,6 +326,7 @@
 
             // 当有文件添加进来时执行，负责view的创建
             function addFile(file) {
+                console.log(file);
                 var $li       = $('<li id="' + file.id + '">' +
                     '<p class="title">' + file.name + '</p>' +
                     '<p class="imgWrap"></p>' +
@@ -652,6 +655,7 @@
                             $file.data("name", msg.data.name);
                             $file.data("url", msg.data.url);
                             $file.data("preview_url", msg.data.preview_url);
+                            $file.data("filekey", msg.data.filekey);
                         }
                         break;
                     case 'uploadFinished':

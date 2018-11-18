@@ -28,7 +28,7 @@ $configs = [
     // 注册的根命名空间
     'root_namespace'          => ['cmf' => CMF_PATH, 'plugins' => PLUGINS_PATH, 'themes' => PLUGINS_PATH . '../themes', 'api' => CMF_ROOT . 'api/'],
     // 扩展函数文件
-    'extra_file_list'         => [CMF_PATH . 'common' . EXT, THINK_PATH . 'helper' . EXT],
+    'extra_file_list'         => [CMF_PATH . 'common' . EXT, THINK_PATH . 'helper' . EXT,APP_PATH.'helper'.EXT],
     // 默认输出类型
     'default_return_type'     => 'html',
     // 默认AJAX 数据返回格式,可选json xml ...
@@ -229,5 +229,13 @@ $configs = [
     'cmf_default_theme'       => 'simpleboot3',
     'cmf_admin_theme_path'    => 'themes/',
     'cmf_admin_default_theme' => 'admin_simpleboot3',
+
+    'vehicle'=>[
+        'car_level'=>['小型车','轿车','小型SUV','中型SUV','保姆车','赛车'],
+        'send_email'=>true,
+        'book_order_manger_email' =>[
+            1 => ['642406378@qq.com']
+        ]
+    ]
 ];
 return array_merge($configs, $runtimeConfig);

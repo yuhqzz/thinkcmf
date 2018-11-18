@@ -327,10 +327,11 @@ class Upload
                 if (!empty($result)) {
                     return array_merge([
                         'filepath'    => $arrInfo["file_path"],
-                        "name"        => $arrInfo["filename"],
+                        'name'        => $arrInfo["filename"],
                         'id'          => $strId,
                         'preview_url' => cmf_get_root() . '/upload/' . $arrInfo["file_path"],
                         'url'         => cmf_get_root() . '/upload/' . $arrInfo["file_path"],
+                        'filekey'     => $arrInfo["file_key"],
                     ], $result);
                 }
             } else {
@@ -339,10 +340,11 @@ class Upload
                             //测试ing
                 return [
                     'filepath'    => $arrInfo["file_path"],
-                    "name"        => $arrInfo["filename"],
+                    'name'        => $arrInfo["filename"],
                     'id'          => $strId,
                     'preview_url' => $previewUrl,
                     'url'         => $url,
+                    'filekey'     => $arrInfo["file_key"],
                 ];
             }
 
@@ -351,10 +353,11 @@ class Upload
 
         return [
             'filepath'    => $arrInfo["file_path"],
-            "name"        => $arrInfo["filename"],
+            'name'        => $arrInfo["filename"],
             'id'          => $strId,
             'preview_url' => cmf_get_root() . '/upload/' . $arrInfo["file_path"],
             'url'         => cmf_get_root() . '/upload/' . $arrInfo["file_path"],
+            'filekey'     => $arrInfo["file_key"],
         ];
     }
 

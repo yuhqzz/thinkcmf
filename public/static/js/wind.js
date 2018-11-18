@@ -1266,7 +1266,9 @@ Wind.ready(function () {
             imagesloaded: 'masonry/imagesloaded.pkgd.min',
             masonry: 'masonry/masonry.pkgd.min',
             masonry3: 'masonry/masonry-3.3.2.pkgd',
-            ueditor:'ueditor/ueditor.all.min'
+            ueditor:'ueditor/ueditor.all.min',
+            selectPage:'selectPage/selectpage'
+
         },
         //CSS路径
         alias_css = {
@@ -1283,7 +1285,10 @@ Wind.ready(function () {
             animate: 'animate/animate',
             bootstrapDatetimePicker: 'bootstrap-datetimepicker/css/bootstrap-datetimepicker',
             dragula: 'dragula/dragula.min',
-            ueditor:'ueditor/themes/default/css/ueditor'
+            ueditor:'ueditor/themes/default/css/ueditor',
+
+            selectPage:'selectPage/selectpage'
+
         };
 
     //add suffix and version

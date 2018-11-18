@@ -647,6 +647,34 @@
     }
     //地址联动end
 
+    //selectpage
+    if ($(".selectpage", ajaxForm_list).size() > 0) {
+        Wind.css('selectPage');
+        Wind.use('selectPage', function () {
+
+            $('.selectpage',ajaxForm_list).selectPage(
+                {
+                    eAjaxSuccess: function (data) {
+                        data.list = typeof data.rows !== 'undefined' ? data.rows : (typeof data.list !== 'undefined' ? data.list : []);
+                        data.totalRow = typeof data.total !== 'undefined' ? data.total : (typeof data.totalRow !== 'undefined' ? data.totalRow : data.list.length);
+                        return data;
+                    }
+                }
+            );
+        });
+        //给隐藏的元素添加上validate验证触发事件
+        $(document).on("change", ".sp_hidden", function () {
+            $(this).trigger("validate");
+        });
+        $(document).on("change", ".sp_input", function () {
+            $(this).closest(".sp_container").find(".sp_hidden").trigger("change");
+        });
+        $(ajaxForm_list).on("reset", function () {
+            setTimeout(function () {
+                $('.selectpage', ajaxForm_list).selectPageClear();
+            }, 1);
+        });
+    }
 })();
 
 //重新刷新页面，使用location.reload()有可能导致重新提交
@@ -796,7 +824,7 @@ function openUploadDialog(dialog_title, callback, extra_params, multi, filetype,
                 if (typeof callback == 'function') {
                     var iframewindow = this.iframe.contentWindow;
                     var files        = iframewindow.get_selected_files();
-                    console.log(files);
+
                     if (files && files.length > 0) {
                         callback.apply(this, [this, files, extra_params]);
                     } else {
@@ -861,6 +889,7 @@ function uploadMultiImage(dialog_title, container_selector, item_tpl_wrapper_id,
             itemtpl     = itemtpl.replace(/\{preview_url\}/g, item.preview_url);
             itemtpl     = itemtpl.replace(/\{filepath\}/g, item.filepath);
             itemtpl     = itemtpl.replace(/\{name\}/g, item.name);
+            itemtpl     = itemtpl.replace(/\{filekey\}/g, item.filekey);
             html += itemtpl;
         });
         $(container_selector).append(html);
@@ -889,6 +918,7 @@ function uploadMultiFile(dialog_title, container_selector, item_tpl_wrapper_id, 
             itemtpl     = itemtpl.replace(/\{preview_url\}/g, item.preview_url);
             itemtpl     = itemtpl.replace(/\{filepath\}/g, item.filepath);
             itemtpl     = itemtpl.replace(/\{name\}/g, item.name);
+            itemtpl     = itemtpl.replace(/\{filekey\}/g, item.filekey);
             html += itemtpl;
         });
         $(container_selector).append(html);

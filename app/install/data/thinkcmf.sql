@@ -1105,3 +1105,153 @@ CREATE TABLE IF NOT EXISTS `cmf_verification_code` (
   `account` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '手机号或者邮箱',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='手机邮箱数字验证码表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cmf_vehicle_brand`
+--
+
+CREATE TABLE IF NOT EXISTS `cmf_vehicle_brand` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键自增id',
+  `name` varchar(64)  NOT NULL DEFAULT '' COMMENT '品牌名称',
+  `icon` varchar(255) NOT NULL DEFAULT '' COMMENT '品牌logo',
+  `first_char` varchar(1) NOT NULL DEFAULT '' COMMENT '拼音首字母大写',
+  `serach_pinyin` varchar(100) NOT NULL DEFAULT '' COMMENT '拼音',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `description` text COMMENT '品牌描述',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`),
+  KEY `g_first_char` (`first_char`),
+  KEY `g_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4  COMMENT='汽车商城-品牌表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cmf_vehicle_series`
+--
+
+CREATE TABLE IF NOT EXISTS `cmf_vehicle_series` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键自增id',
+  `name` varchar(128) NOT NULL DEFAULT '' COMMENT '车系名称',
+  `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '品牌id',
+  `is_hot` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态,1:是热门,0:是热门',
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '厂家指导价',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '车系描述',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`),
+  KEY `g_brand_id` (`brand_id`),
+  KEY `is_hot` (`is_hot`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4  COMMENT='汽车商城-车系表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cmf_vehicle_style`
+--
+
+CREATE TABLE IF NOT EXISTS `cmf_vehicle_style` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键自增id',
+  `name` varchar(255)  NOT NULL DEFAULT '' COMMENT '车型名称',
+  `factory_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '厂家指导价',
+  `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '品牌id',
+  `series_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '车系id',
+  `level` varchar(32)  NOT NULL DEFAULT '' COMMENT '车级别',
+  `is_hot` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '热门,1:是热门,0:否',
+  `is_recommend` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐,1:是,0:否',
+  `is_sale` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否在售,0:在售,1:停售',
+  `car_config_tpl_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '参数配置模板id',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `description` text  COMMENT '车型描述',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`),
+  KEY `g_brand_id` (`brand_id`),
+  KEY `g_series_id` (`series_id`),
+  KEY `is_hot` (`is_hot`),
+  KEY `is_sale` (`is_sale`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4  COMMENT='汽车商城-车型表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cmf_vehicle_images`
+--
+
+CREATE TABLE IF NOT EXISTS `cmf_vehicle_images` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键自增id',
+  `name` varchar(255)  NOT NULL DEFAULT '' COMMENT '图片名称',
+  `type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '0:未知 1:车系 2:车型 3:其他',
+  `resource_id` int(11)	 NOT NULL DEFAULT '0' COMMENT '资源id',
+  `image_path` varchar(255)  NOT NULL DEFAULT '' COMMENT '图片实际地址',
+  `asset_id` int(11) NOT NULL DEFAULT '0' COMMENT '附件表id',
+  `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `resource_id` (`resource_id`),
+  KEY `type` (`type`),
+  KEY `create_time` (`create_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4  COMMENT='汽车商城-图片表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cmf_vehicle_store`
+--
+
+CREATE TABLE IF NOT EXISTS `cmf_vehicle_store` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键自增id',
+  `name` varchar(500) NOT NULL DEFAULT '' COMMENT '4S店名称',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '店铺类型',
+  `main_brand` varchar(32) NOT NULL DEFAULT '' COMMENT '经营品牌',
+  `superiority` varchar(255) NOT NULL DEFAULT '' COMMENT '店铺优势',
+  `address` varchar(255) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `contact_name` varchar(100) NOT NULL DEFAULT '' COMMENT '联系人',
+  `telephone` varchar(30) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `email` varchar(64) NOT NULL DEFAULT '' COMMENT '联系邮箱',
+  `wechat` varchar(32) NOT NULL DEFAULT '' COMMENT '官方微信公众号',
+  `wechat_qrcode` varchar(64) NOT NULL DEFAULT '' COMMENT '官方微信公众号二维码',
+  `weibo` varchar(64) NOT NULL DEFAULT '' COMMENT '官方微博',
+  `qq` varchar(32) NOT NULL DEFAULT '' COMMENT '官方qq',
+  `position` varchar(64) NOT NULL DEFAULT '' COMMENT '地理位置',
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT= 1 DEFAULT CHARSET=utf8mb4  COMMENT='汽车商城-4S店表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `cmf_vehicle_order`
+--
+
+CREATE TABLE IF NOT EXISTS `cmf_vehicle_order` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键自增id',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '订单类型：0:试驾 1:询价',
+  `name` varchar(200) NOT NULL DEFAULT '' COMMENT '用户姓名',
+  `sex` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别:0保密,1先生 2女士',
+  `telephone` varchar(255) NOT NULL DEFAULT '' COMMENT '预约电话',
+  `ip` varchar(32) NOT NULL DEFAULT '' COMMENT '预约客户端ip',
+  `brand_id` int(11) NOT NULL DEFAULT '0' COMMENT '品牌id',
+  `series_id` int(11) NOT NULL DEFAULT '0' COMMENT '车系id',
+  `style_id` int(11) NOT NULL DEFAULT '0' COMMENT '车型id',
+  `dealers_id` int(11) NOT NULL DEFAULT '0' COMMENT '4S店_id',
+  `area_id` int(11) NOT NULL DEFAULT '0' COMMENT '预约城市id',
+  `source` varchar(255) NOT NULL DEFAULT '' COMMENT '线索来源',
+  `book_to_time` int(10) DEFAULT NULL COMMENT '预约到店时间',
+  `createtime` int(10) DEFAULT NULL COMMENT '创建时间',
+  `updatetime` int(10) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '预约状态:0:客户已预约 1:销售客服已沟通 2:客户到店销售跟进3:预约时间客户未到店',
+  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  `delete_time` int(10)  NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `brand_id` (`brand_id`),
+  KEY `series_id` (`series_id`),
+  KEY `dealers_id` (`dealers_id`) ,
+  KEY `createtime` (`createtime`),
+  KEY `type` (`type`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='汽车商城-试驾/询价表';
