@@ -16,7 +16,7 @@ class IndexController extends HomeBaseController
 {
     public function index()
     {
-        $this->redirect('portal/channel/gf');
+        $this->redirect('vehicle/index/index');
         //return $this->fetch(':index');
     }
 }

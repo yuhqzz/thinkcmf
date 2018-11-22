@@ -170,8 +170,9 @@ class AdminStoreController extends AdminBaseController
     {
 
         if ($this->request->isPost()){
+
             $params = $this->request->param();
-            if(empty($data)){
+            if(empty($params)){
                 $this->error('参数错误');
             }
             try{

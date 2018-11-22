@@ -9,6 +9,7 @@ namespace app\vehicle\service;
 
 
 use app\vehicle\model\SeriesModel;
+use think\db\exception\DataNotFoundException;
 
 class VehicleService
 {
@@ -16,14 +17,20 @@ class VehicleService
 
     public function getSeriesInfo($series_id){
         if(empty($series_id)) return [];
-        $series_id = (int)$series_id;
-        $seriesModel = new SeriesModel();
-        $data = $seriesModel
-            ->with(['brand','style','images'])
-            ->where('series_model.id','=',$series_id)
-            ->find();
-        //echo $seriesModel->getLastSql();
-        return $data?$data:[];
+        try{
+            $series_id = (int)$series_id;
+            $seriesModel = new SeriesModel();
+            $data = $seriesModel
+                ->with(['brand'])
+                ->where('series_model.id','=',$series_id)
+                ->find();
+
+        }catch (DataNotFoundException $dataNotFoundException){
+            $data = [];
+        }
+
+        //echo $seriesModel->getLastSql();die;
+        return $data?$data->toArray():[];
 
     }
 

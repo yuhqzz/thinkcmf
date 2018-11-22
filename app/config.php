@@ -53,7 +53,7 @@ $configs = [
     // | 模块设置
     // +----------------------------------------------------------------------
     // 默认模块名
-    'default_module'          => 'portal',
+    'default_module'          => 'vehicle',
     // 禁止访问模块
     'deny_module_list'        => ['common'],
     // 默认控制器名
@@ -234,7 +234,7 @@ $configs = [
         'car_level'=>['小型车','轿车','小型SUV','中型SUV','保姆车','赛车'],
         'send_email'=>true,
         'book_order_manger_email' =>[
-            1 => ['642406378@qq.com']
+            1 => ['7124046@qq.com']
         ]
     ]
 ];

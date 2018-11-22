@@ -34,8 +34,7 @@ class IndexController extends HomeBaseController
      */
     public function index(){
 
-        $series_info = $this->vehicleSer->getSeriesInfo(1);
-
+        return $this->fetch();
     }
 
     /**

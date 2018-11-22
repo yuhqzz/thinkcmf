@@ -13,7 +13,7 @@ use think\Model;
 
 class VehicleOrderModel extends Model
 {
-    protected $table ='gf_vehicle_order';
+    protected $name ='vehicle_order';
 
     /**
      * 添加订单
@@ -26,7 +26,7 @@ class VehicleOrderModel extends Model
         $add['name'] = trim($data['name']); // 姓名
         $add['sex'] = intval($data['sex']); // 性别id
         $add['telephone'] = trim($data['telephone']);
-        $add['book_ip'] = get_client_ip(0,true); // ip
+        $add['ip'] = get_client_ip(0,true); // ip
         $add['brand_id'] = isset($data['brand_id'])?$data['brand_id']:0; // 车系
         $add['series_id'] = isset($data['series_id'])?$data['series_id']:0; // 车系
         $add['style_id'] = isset($data['style_id'])?$data['style_id']:0; // 车型

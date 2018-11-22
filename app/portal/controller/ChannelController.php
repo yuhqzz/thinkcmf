@@ -46,7 +46,7 @@ class ChannelController extends HomeBaseController
      * @param int $channel_id
      * @return mixed
      */
-    public function channel($channel_id =1){
+    public function channel( $channel_id =1 ){
         if(empty($channel_id)){
             $this->error('404');
         }

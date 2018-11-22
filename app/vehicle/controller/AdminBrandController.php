@@ -12,6 +12,7 @@ namespace app\vehicle\controller;
 use app\vehicle\model\BrandModel;
 use cmf\controller\AdminBaseController;
 use think\db;
+use think\exception\ErrorException;
 
 /**
  *
@@ -98,16 +99,19 @@ class AdminBrandController extends AdminBaseController
             $data['name'] = trim($data['name']);
 
             $data['description'] = htmlspecialchars(trim($data['description']),ENT_QUOTES);
+            try{
+                $result = $this->validate($data, 'Brand.add');
+                if ($result !== true) {
+                    $this->error($result);
+                }
 
-            $result = $this->validate($data, 'Brand.add');
-            if ($result !== true) {
-                $this->error($result);
-            }
-
-            $brandModel = new BrandModel();
-            $result = $brandModel->isUpdate(false)->allowField(true)->save($data);
-            if ($result === false) {
-                $this->error('添加失败!');
+                $brandModel = new BrandModel();
+                $result = $brandModel->isUpdate(false)->allowField(true)->save($data);
+                if ($result === false) {
+                    $this->error('添加失败!');
+                }
+            }catch (ErrorException $exception){
+                $this->error('保存失败! '.$exception->getMessage());
             }
         }
         $this->success('添加成功!', url('AdminBrand/index'));
@@ -170,17 +174,23 @@ class AdminBrandController extends AdminBaseController
            $data['name'] = trim($data['name']);
 
            $data['description'] = htmlspecialchars(trim($data['description']),ENT_QUOTES);
-           $result = $this->validate($data, 'Brand.edit');
 
-           if ($result !== true) {
-               $this->error($result);
+           try{
+               $result = $this->validate($data, 'Brand.edit');
+
+               if ($result !== true) {
+                   $this->error($result);
+               }
+               $brandModel = new BrandModel();
+               $result = $brandModel->isUpdate(true)->allowField(true)->save($data);
+               if ($result === false) {
+                   $this->error('保存失败!');
+               }
+               $this->success('保存成功!');
+           }catch (ErrorException $exception){
+               $this->error('保存失败! '.$exception->getMessage());
            }
-           $brandModel = new BrandModel();
-           $result = $brandModel->isUpdate(true)->allowField(true)->save($data);
-           if ($result === false) {
-               $this->error('保存失败!');
-           }
-           $this->success('保存成功!');
+
        }
 
     }
